@@ -5,7 +5,7 @@ Overview
 This project combines Reinforcement Learning (RL) and a Hidden Markov Model (HMM) to play a Hangman-style word prediction game.
 The HMM models language patterns, while the RL agent learns to guess letters strategically based on feedback.
 
-Objectives
+Objectives:
 
 Use an HMM to learn transition (between letters) and emission (letter likelihood) probabilities from text data.
 
