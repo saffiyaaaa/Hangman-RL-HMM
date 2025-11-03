@@ -1,79 +1,94 @@
-Hangman RL-HMM Hybrid Model
-
-Overview
+🧠 Hangman RL-HMM Hybrid Model
+📘 Overview
 
 This project combines Reinforcement Learning (RL) and a Hidden Markov Model (HMM) to play a Hangman-style word prediction game.
-The HMM models language patterns, while the RL agent learns to guess letters strategically based on feedback.
+The HMM models the statistical patterns of language, while the RL agent learns optimal guessing strategies through interaction and feedback.
 
-Objectives:
+🎯 Objectives
 
-Use an HMM to learn transition (between letters) and emission (letter likelihood) probabilities from text data.
+Model sequential letter dependencies using a probabilistic HMM.
 
-Train a Q-learning agent to maximize rewards by correctly predicting letters and completing words efficiently.
+Train an RL agent (Q-learning) to improve letter prediction through trial and reward.
 
-Demonstrate how probabilistic models and reinforcement learning can work together for sequential prediction tasks.
+Demonstrate how combining probabilistic reasoning and reinforcement learning enhances decision-making in language-based tasks.
 
-Model Design
-Hidden Markov Model (HMM)
+🧩 Model Design
+🔹 Hidden Markov Model (HMM)
 
-Hidden States: Represent possible underlying letters or phonetic patterns.
+Hidden States: Represent possible underlying letters or phonetic states.
 
-Observations: Actual visible letters in words.
+Observations: Visible letters in the word being guessed.
 
-Transition Probabilities: Estimate the likelihood of moving from one letter/state to another (e.g., ‘t’ → ‘h’).
+Transition Probabilities: Likelihood of moving from one state (letter) to another (e.g., ‘t’ → ‘h’).
 
-Emission Probabilities: Estimate the chance of a hidden state producing a visible letter.
+Emission Probabilities: Probability of a state emitting an observed letter.
 
-These probabilities are learned directly from the training corpus using frequency counts (similar to N-gram modeling).
+Learned using frequency-based estimation from the training corpus (similar to N-gram modeling).
 
-Reinforcement Learning Agent
+🔹 Reinforcement Learning Agent
 
-Goal: Guess missing letters in the Hangman game.
+Goal: Guess the missing letters in a word correctly.
 
 Algorithm: Deep Q-Learning (DQN).
 
-Reward: Positive for correct guesses, negative for incorrect ones.
+Reward:
 
-Action Space: All possible alphabet letters.
++1 for a correct guess.
 
-The agent updates its Q-values to maximize expected reward based on state transitions and outcomes.
+−1 for a wrong guess.
 
-Training Process
++5 for completing a word.
 
-Load and preprocess the text corpus.
+Action Space: 26 English alphabet letters.
 
-Train the HMM to compute transition and emission probabilities.
+Learns to maximize long-term reward through iterative gameplay and feedback.
 
-The RL agent interacts with the environment (Hangman game) for several episodes:
+⚙️ Training Pipeline
 
-Observes the current word state.
+Corpus Preparation: Load and preprocess corpus.txt.
 
-Selects a letter based on its policy (exploration vs exploitation).
+HMM Training: Estimate transition and emission probabilities.
 
-Receives feedback and updates Q-values.
+RL Interaction:
 
-Key Insights
+The agent observes the current masked word state.
 
-The HMM captures language structure, guiding the RL agent toward likely letters.
+Selects a letter (action).
 
-The RL agent refines guessing strategy over time, balancing exploration and exploitation.
+Receives feedback (reward) and updates Q-values.
 
-Integration of probabilistic modeling and learning-based decision-making improves overall prediction efficiency.
+Convergence: The model improves over multiple episodes (e.g., 2000).
 
-How to Run (Google Colab)
+💡 Key Insights
 
-Upload your corpus.txt file to the Colab environment.
+The HMM captures language regularities, narrowing the search space.
 
-Upload the project script (e.g., hangman_rl_hmm.py or notebook).
+The RL agent learns adaptive guessing, improving efficiency.
 
-Run all cells.
+The hybrid system blends statistical modeling (HMM) with dynamic learning (RL), outperforming purely random guessing.
+
+🚀 How to Run (Google Colab)
+
+Upload your corpus.txt file to Colab.
+
+Upload the notebook or script file (e.g., hangman_rl_hmm.py or .ipynb).
+
+Run the following to start training:
 
 agent, hmm = train_pipeline("corpus.txt", episodes=2000)
 
 
-To evaluate performance:
+Evaluate the trained agent:
 
 avg_reward, success_rate, rewards = evaluate_agent(agent, hmm, episodes=200)
 
 
-Results (accuracy, reward trends) will appear in the output.
+The notebook will display training progress and final results (average reward, success rate).
+
+🔬 Future Improvements
+
+Extend beyond letter-level prediction to word or phrase generation.
+
+Integrate deep embeddings (e.g., Word2Vec, BERT) for richer state representation.
+
+Optimize reward shaping for faster convergence and smarter exploration.
